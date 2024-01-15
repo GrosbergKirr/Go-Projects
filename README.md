@@ -1,1 +1,1 @@
-# Проекты на языке Golang
+# Golang projects
