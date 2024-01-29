@@ -1,1 +1,8 @@
 # Golang projects
+
+| Название | Описание | Инструменты |
+| :--------: | :-------: | :-------: |
+|[Основной синтаксис Golang](https://github.com/GrosbergKirr/Go-Projects/tree/main/simple-sintax)|Указатели, структуры, интерфейсы и их имплиментация|<img src="https://img.shields.io/badge/Go-black?style=flat-square&logo=go&logoColor=blue"/>|
+|[Поиск повтояющихся строк](https://github.com/GrosbergKirr/Go-Projects/tree/main/duplic-check)|Запрос файла при запуске, а при отсутствии файла прослушивание cmd |<img src="https://img.shields.io/badge/Go-black?style=flat-square&logo=go&logoColor=blue"/><img src="https://img.shields.io/badge/bufio-black?style=flat-square"/><img src="https://img.shields.io/badge/os-black?style=flat-square"/>|
+|[Считывание чисел и поиск максимума](https://github.com/GrosbergKirr/Go-Projects/tree/main/digits)|Запрос файла при запуске, а при отсутствии файла прослушивание cmd |<img src="https://img.shields.io/badge/Go-black?style=flat-square&logo=go&logoColor=blue"/><img src="https://img.shields.io/badge/strconv-black?style=flat-square"/><img src="https://img.shields.io/badge/strings-black?style=flat-square"/>|
+|[URL-shortner Go](https://github.com/GrosbergKirr/Go-Projects/tree/main/URL-shortner)|База данных для хранения ссылок и сокращений к ним на языке Golang|<img src="https://img.shields.io/badge/Go-black?style=flat-square&logo=go&logoColor=blue"/><img src="https://img.shields.io/badge/MySQL-black?style=flat-square&logo=mysql&logoColor=blue"/>|
