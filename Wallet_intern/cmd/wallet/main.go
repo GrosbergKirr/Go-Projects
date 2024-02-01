@@ -1,16 +1,17 @@
 package main
 
 import (
+	"Wallet_intern/internal/api/v1/wallet"
 	"Wallet_intern/internal/config"
 	"Wallet_intern/internal/storage/psql"
-	"fmt"
+	"github.com/go-chi/chi/v5"
 	"log/slog"
+	"net/http"
 	"os"
 )
 
 func main() {
 	cfg := config.Mustload()
-	fmt.Println(cfg)
 
 	log := setupLogger(cfg.Env)
 
@@ -24,11 +25,31 @@ func main() {
 	}
 	_ = storage
 
-	id, err := storage.Send("1", "2", 100)
-	if err != nil {
-		log.Error("failed!!!")
+	router := chi.NewRouter()
+
+	router.Post("/api/v1/wallet", wallet.NewCreator(log, storage))
+
+	donorid := "tzc7ny5i96qssbdb97xuv02deacw5k"
+	pattern := "/api/v1/wallet/" + donorid + "/send"
+	router.Post(pattern, wallet.NewSender(log, storage, donorid))
+
+	//ЗАПУСКАЕМ СЕРВЕР !!!!
+
+	log.Info("starting server", slog.String("address", cfg.Address))
+
+	srv := &http.Server{
+		Addr:         cfg.Address,
+		Handler:      router,
+		ReadTimeout:  cfg.HTTPServer.Timeout,
+		WriteTimeout: cfg.HTTPServer.Timeout,
+		IdleTimeout:  cfg.HTTPServer.IdleTimeout,
 	}
-	_ = id
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Error("failed to start server")
+	}
+
+	log.Info("server started")
 }
 
 // ---Make logger---
