@@ -32,10 +32,10 @@ func NewCreator(log *slog.Logger, creator Creator) http.HandlerFunc {
 
 		log.Info("Wallet created. ID:", id)
 
-		responseOK(w, r, newId, defaultMoney)
+		CreateRespOK(w, r, newId, defaultMoney)
 	}
 }
-func responseOK(w http.ResponseWriter, r *http.Request, id string, balance float32) {
+func CreateRespOK(w http.ResponseWriter, r *http.Request, id string, balance float32) {
 	render.JSON(w, r, ResponseCreate{
 		Id:      id,
 		Balance: balance,
