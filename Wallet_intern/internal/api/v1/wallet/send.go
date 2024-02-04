@@ -3,6 +3,7 @@ package wallet
 import (
 	"Wallet_intern/internal/storage/postgressql"
 	"errors"
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"io"
 	"log/slog"
@@ -19,8 +20,10 @@ type Sender interface {
 	WalletGetter(WalletId string) (postgressql.Wallet, error)
 }
 
-func NewSender(log *slog.Logger, sender Sender, transDonorId string) http.HandlerFunc {
+func NewSender(log *slog.Logger, sender Sender) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		WalletId := chi.URLParam(r, "walletID")
 
 		var req RequestSend
 
@@ -36,7 +39,7 @@ func NewSender(log *slog.Logger, sender Sender, transDonorId string) http.Handle
 			w.WriteHeader(http.StatusBadRequest)
 		} else {
 			RecipeValidCheck, err := sender.WalletGetter(req.RecipientId)
-			DonorAmountCheck, err := sender.WalletGetter(transDonorId)
+			DonorAmountCheck, err := sender.WalletGetter(WalletId)
 			if err != nil {
 				log.Error("get id from DB mistake", http.StatusBadRequest)
 			}
@@ -55,7 +58,7 @@ func NewSender(log *slog.Logger, sender Sender, transDonorId string) http.Handle
 				w.WriteHeader(http.StatusBadRequest)
 			} else {
 				res, err := sender.Send(
-					transDonorId,
+					WalletId,
 					req.RecipientId,
 					req.Amount,
 				)

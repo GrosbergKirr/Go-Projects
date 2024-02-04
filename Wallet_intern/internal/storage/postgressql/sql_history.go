@@ -15,7 +15,7 @@ type WalletHistory struct {
 
 func (s *Storage) History(walletId string) ([]WalletHistory, error) {
 
-	hisStmt, err := s.Db.Prepare("select * from transactions where (donor_id = $1) or (recipient_id = $1)")
+	hisStmt, err := s.Db.Prepare("select * from transactions where (donor_id = $1 or recipient_id = $1)")
 	if err != nil {
 		log.Fatalf("prepare mistake%s", err)
 	}
@@ -28,7 +28,7 @@ func (s *Storage) History(walletId string) ([]WalletHistory, error) {
 
 	for history.Next() {
 		wh := WalletHistory{}
-		err := history.Scan(&wh.To, &wh.From, &wh.To, &wh.Amount)
+		err := history.Scan(&wh.Time, &wh.From, &wh.To, &wh.Amount)
 		if err != nil {
 			fmt.Println(err)
 			continue

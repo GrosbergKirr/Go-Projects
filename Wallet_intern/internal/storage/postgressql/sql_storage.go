@@ -2,7 +2,6 @@ package postgressql
 
 import (
 	"database/sql"
-	"fmt"
 	_ "github.com/lib/pq"
 )
 
@@ -11,12 +10,11 @@ type Storage struct {
 }
 
 func New(storagePath string) (*Storage, error) {
-	const op = "storage.postgressql.New"
 
 	db, err := sql.Open("postgres", storagePath)
 
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", op, err)
+		return nil, err
 	}
 
 	cr, err := db.Exec("create table IF NOT EXISTS wallet (id varchar, balance float4, PRIMARY KEY (id))")
@@ -25,7 +23,7 @@ func New(storagePath string) (*Storage, error) {
 	_ = cr
 	_ = cr1
 	if err != nil {
-		return nil, fmt.Errorf("{op}: #{err}")
+		return nil, err
 	}
 	return &Storage{Db: db}, nil
 }

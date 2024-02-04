@@ -11,8 +11,6 @@ type Wallet struct {
 }
 
 func (s *Storage) WalletGetter(WalletId string) (Wallet, error) {
-	const op = "storage.postgressql.Check"
-
 	stmtCheck, err := s.Db.Prepare("select * from wallet where id = $1")
 	if err != nil {
 		log.Fatalf("prepare mistake%s", err)

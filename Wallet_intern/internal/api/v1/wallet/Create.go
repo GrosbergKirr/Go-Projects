@@ -25,12 +25,12 @@ func NewCreator(log *slog.Logger, creator Creator) http.HandlerFunc {
 		id, err := creator.Create(
 			newId,
 			defaultMoney)
-
+		_ = id
 		if err != nil {
 			log.Error("failed to create wallet!")
 		}
 
-		log.Info("Wallet created. ID:", id)
+		log.Info("Wallet created. ID:", newId)
 
 		CreateRespOK(w, r, newId, defaultMoney)
 	}

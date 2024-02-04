@@ -22,7 +22,7 @@ type HTTPServer struct {
 }
 
 func Mustload() *Config {
-	os.Setenv("CONFIG_PATH", "C:\\Users\\grosy\\GolandProjects\\Wallet_intern\\config\\local.yaml")
+	os.Setenv("CONFIG_PATH", "./config/docker.yaml")
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		log.Fatal("CONFIG IS NOT SET")

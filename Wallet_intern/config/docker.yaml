@@ -1,0 +1,8 @@
+env: "local" # local dev prod
+storage_path: "postgresql://postgres:password@wallet_db:5432/wallet_db?sslmode=disable" # Будет порт для постгреса
+http_server:
+  address: "wallet:8082"
+  timeout: 4s
+  idle_timeout: 60s
+  user: "admin"
+  password: "admin"
